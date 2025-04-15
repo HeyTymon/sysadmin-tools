@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 path=$(pwd)
-message="Automatic commit #$(date +%Y-%m-%d_%H-%M)"
+message="Automatic commit #$(date +%d-%m-%Y_%H:%M)"
 
 while getopts 'p:m:' opt 2>/dev/null ; do
  case "$opt" in
@@ -19,9 +19,7 @@ git rev-parse --is-inside-work-tree &>/dev/null || { echo "Repository not initia
 
 if [[ -z "$(git status --porcelain)" ]]; then echo "Not changes to commit" ; exit 0 ; fi
 
-
-
-IFS=$'\n' 
+IFS=$'\n'
 read -d '' -r -a remotes < <(git remote)
 read -d '' -r -a branches < <(git branch --format '%(refname:short)') #Skip * in the name of the current branch
 
@@ -31,7 +29,7 @@ git add -A
 git commit -m"${message}"
 git push
 
-
 #TODO
-#git fetch origin - synchro remote and local branches + user choice where to push chaneges 
-#fix path as an argument
+#git fetch origin - synchro remote and local branches + user choice where to push chaneges
+
+
