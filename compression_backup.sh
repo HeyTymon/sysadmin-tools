@@ -2,7 +2,7 @@
 
 display_help() {
  echo "Usage: $0 [OPTIONS]"
- echo "  -p   Source path to bakcup"
+ echo "  -s   Source path to bakcup"
  echo "  -d   Destination path of the backup"
  echo "  -c   Change compresion algoritm to bzip2 - default is gzip"
  echo "  -h   Display help"
@@ -22,12 +22,11 @@ while getopts 's:d:ch' opt 2>/dev/null; do
  esac
 done
 
-if [[ -z "${source}" || -z "${destination}" ]]; then echo "Set source and destaination path (-s, -d)" ; exit 1 ; fi 
+#if [[ -z "${source}" || -z "${destination}" ]]; then echo "Set source and destaination path (-s, -d)" ; exit 1 ; fi 
+cd "${destiantion}" && cd "${source}" || exit 1
 
 arr=($(date))
 date_str="${arr[1]}-${arr[2]}-${arr[-1]}"
-
-cd "${source}"
 
 for d in $(ls -d */); do
  d_mod="${d// /_}"
@@ -39,7 +38,8 @@ for d in $(ls -d */); do
  fi
 done
 
+#todo
 if [[ $(ls -p | grep -v / -c) -gt 1 ]] ; then
- find . -type f -exec tar --transform 's|^./||' -rf "${destination}/backup-files-${date_str}-custom.tar.bz2" {} +
+# find . -type f -exec tar --transform 's|^./||' -rf "${destination}/backup-files-${date_str}-custom.tar.bz2" {} +
 # find . -type f -exec tar -rf "${destination}/backup-files-${date_str}-custom.tar.bz2" {} +
 fi
