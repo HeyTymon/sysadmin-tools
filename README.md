@@ -16,11 +16,31 @@ If no options are provided, it uses default values:
 
 The script checks if **Git** is installed, verifies the repository, adds all changes, commits with the provided message, and pushes the changes to the specified remote and branch.
 
+## iaac_tools_init.sh
+This script installs and configures essential Infrastructure as Code (**IaC**) tools on a Debian-based system. It must be run with root privileges.
 
-## `docker_init.sh`
-This script installs the necessary prerequisites, **Docker**, and **Portainer** on a Debian-based system. It sets up Docker, runs the `hello-world` container for verification, and deploys Portainer for Docker management.
+It installs:
+- **Docker** along with its dependencies and official APT repository
+- **Portainer** for web-based Docker container management
+- **Terraform** from the official HashiCorp repository
 
+Additionally:
+- Runs a `hello-world` test container to verify Docker installation
+- Creates a volume for Portainer and starts it in a container
+- Verifies the availability of the `terraform` command after installation
 
-## `scan_network.sh`
-This script performs a network scan using **Nmap**
+## scan_network.sh  
+This script performs a detailed network scan using **Nmap**. It requires **Nmap** to be installed on the system.
 
+The script:
+- Verifies that **Nmap** is installed
+- Creates a `nmap_results/` directory (if it doesn't exist)
+- Performs a scan on the target IP or hostname passed as the first argument
+- Saves the output to `nmap_results/output.txt`
+
+The scan includes:
+- TCP SYN scan (`-sS`)
+- UDP scan (`-sU`)
+- Version detection (`-sV`)
+- OS detection (`-O`)
+- Specific ports: `U:53,111,137` and `T:21,22,23,24,25,80,139,8080`
