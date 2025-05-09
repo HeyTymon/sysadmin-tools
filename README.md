@@ -44,3 +44,18 @@ The scan includes:
 - Version detection (`-sV`)
 - OS detection (`-O`)
 - Specific ports: `U:53,111,137` and `T:21,22,23,24,25,80,139,8080`
+
+
+## `generate_password.sh`
+This script generates random passwords with customizable lengths and character sets. It allows the user to specify:
+- The length of the password (`$1`)
+- The type of characters to include (`$2`)
+
+If no arguments are provided:
+- The default password length is set to 10 characters, and the password will contain only uppercase and lowercase letters.
+
+The second argument (`$2`) determines the type of characters:
+- `1`: Includes letters and digits 
+- `2`: Includes letters and special characters 
+- `3`: Includes letters, digits, and special characters 
+
